@@ -85,7 +85,6 @@
           </div>
         </div>
         <div v-loading="loading" class="kosong" v-else>
-          {{typeof searchResult.track}}
           <div class="text">
             <h1 class="in">Search millions of music</h1>
             <h1 class="out">Search millions of music</h1>
