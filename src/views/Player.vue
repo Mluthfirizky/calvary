@@ -246,6 +246,9 @@ export default {
 .arm {
   width: 170px;
   height: 215px;
+  -moz-user-select:none;
+  user-select:none;
+  -webkit-user-select:none;
   top: 110px;
 }
 .arm-wrapper {
@@ -438,6 +441,9 @@ a label{
 }
 .play-wrapper .play {
   width: 46px;
+  -moz-user-select:none;
+  user-select:none;
+  -webkit-user-select:none;
   height: auto;
 }
 .plays {

@@ -349,6 +349,9 @@ main .top-label {
   filter: brightness(110%);
 }
 .btn img {
+  -moz-user-select:none;
+  user-select:none;
+  -webkit-user-select:none;
   transition: 0.2s;
   width: 52px;
   height: auto;
@@ -467,6 +470,9 @@ main .top-label {
 .kosong .text{
   display: flex;
   gap: 10px;
+  -moz-user-select:none;
+  user-select:none;
+  -webkit-user-select:none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -476,6 +482,7 @@ main .top-label {
 }
 .text .in{
   color: white;
+  
 }
 .text .out{
   color: transparent;
