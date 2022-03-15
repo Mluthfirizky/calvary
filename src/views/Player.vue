@@ -1,7 +1,7 @@
 <template>
   <div class="player">
     <header id="top">
-      <img @click="$router.go(-1)" src="../assets/back.png" alt="" />
+      <img @click="back" src="../assets/back.png" alt="" />
       <h1>Now Playing</h1>
     </header>
     <main>
@@ -67,17 +67,16 @@
             song.sections[2].youtubeurl.actions[0].uri.replace(
               'https://youtu.be/',
               'https://www.youtube.com/embed/'
-            ) : song.sections[1].youtubeurl.actions[0].uri.replace(
+            ).replace('?autoplay=1', '') : song.sections[1].youtubeurl.actions[0].uri.replace(
               'https://youtu.be/',
               'https://www.youtube.com/embed/'
-            )
+            ).replace('?autoplay=1', '')
           "
           title="YouTube video player"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
         ></iframe>
-
         <label id="lyric" class="lyric-label"> Lyrics </label>
         <div v-if="typeof song.sections != 'undefined' && typeof song.sections[1].text != 'undefined'" class="lyric-wrapper">
         <p v-for="lyric in song.sections[1].text" :key="lyric.index"  class="lyrics">{{lyric}}</p>
@@ -129,6 +128,7 @@ import WaveSurfer from "wavesurfer.js";
 // import VueWaveSurfer from "wavesurfer.js-vue";
 // import WaveSurferVue from 'wavesurfer.js-vue/src/WaveSurferVue.vue';
 import Cursor from "wavesurfer.js/dist/plugin/wavesurfer.cursor";
+import header from '../components/header'
 export default {
   components: {
     // VueWaveSurfer
@@ -158,11 +158,7 @@ export default {
       `https://shazam.p.rapidapi.com/songs/get-details?key=${this.$route.params.id}&locale=en-US`,
       {
         method: "GET",
-        headers: {
-          "x-rapidapi-host": "shazam.p.rapidapi.com",
-          "x-rapidapi-key":
-            "d85c904f92msha153b0e15982992p14de15jsn4bc8ea37d711",
-        },
+        headers: header,
       }
     )
       .then((response) => response.json())
@@ -193,6 +189,11 @@ export default {
       });
   },
   methods: {
+    back(){
+      this.$router.push('/')
+      this.isPlaying = false
+      this.waveSurfer.stop();
+    },
     play() {
       this.waveSurfer.play();
       this.isPlaying = false;
@@ -257,7 +258,7 @@ export default {
   height: 350px;
   width: 260px;
   transform: rotate(-20deg);
-  top: -20px;
+  top: -120px;
 }
 @keyframes spin1 {
   0% {
@@ -290,6 +291,8 @@ header img {
   font-weight: 500;
   font-size: 22px;
   color: #000000;
+}
+.player{
 }
 .player main {
   display: flex;
@@ -358,6 +361,8 @@ a label{
 .music-detail .title {
   font-size: 35px;
   font-weight: 500;
+  text-align: center;
+  padding: 0 20px;
 }
 .music-detail .singer {
   margin-top: 7px;
@@ -559,5 +564,69 @@ section .lyrics {
 .grid-link img {
   width: 135px;
   height: auto;
+}
+
+@media (max-width: 500px){
+  .music-detail .title {
+  font-size: 27px;
+}
+.grid-container {
+  display: grid;
+  row-gap: 20px;
+  margin-top: 30px;
+  padding: 0 30px;
+  width: 100vw;
+  column-gap: 30px;
+}
+
+section {
+  margin-top: 10px;
+  padding: 22px;
+}
+.music-detail .singer {
+  margin-top: 10px;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+section .lyrics {
+  font-size: 15px;
+}
+.grid-link {
+  padding: 10px 13px;
+}
+.grid-link img {
+  width: 115px;
+}
+}
+
+@media (max-width: 380px){
+  .disk-wrapper {
+  width: 285px;
+  height: 285px;
+}
+.grid-link {
+  padding: 8px 11px;
+}
+.grid-link img {
+  width: 100px;
+}
+.arm-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  position: absolute;
+  margin-left: 360px;
+  transition: 0.3s;
+  height: 350px;
+  width: 260px;
+  transform: rotate(-20deg);
+}
+.arm-wrapper-rotate {
+  transform: rotate(0deg);
+}
+.music-detail .title {
+  font-size: 27px;
+}
 }
 </style>
