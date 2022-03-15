@@ -16,7 +16,7 @@
       <div class="music-detail">
         <h1 class="title">{{ song.title }}</h1>
         <h3 class="singer">{{ song.subtitle }}</h3>
-        <p class="release">Released &ensp;<span> 1960</span></p>
+        <p v-if="song.sections" class="release">Released &ensp;<span>{{song.sections[0].metadata[2].text}}</span></p>
       </div>
       <div id="waveform">
         <div class="hide"></div>
@@ -85,25 +85,25 @@
         <div class="link">
           <label class="link-label">Open in:</label>
           <div class="grid-container">
-            <a v-if="typeof song.hub != 'undefined'" :href="song.hub.providers[0].actions[0].uri">
+            <a target="_" v-if="typeof song.hub != 'undefined'" :href="song.hub.providers[0].actions[0].uri.replace('spotify:search:', 'https://open.spotify.com/search/')">
             <div class="grid-link">
               <img src="../assets/spotify.png" alt="" />
             </div>
             </a>
 
-            <a href="">
+            <a target="_" :href="'https://www.deezer.com/search/' + song.title">
             <div class="grid-link">
               <img src="../assets/deezer.png" alt="" />
             </div>
             </a>
 
-            <a href="">
+            <a v-if="song.hub" target="_" :href="song.hub.options[1].actions[0].uri">
             <div class="grid-link">
               <img src="../assets/apple.png" alt="" />
             </div>
             </a>
 
-            <a href="">
+            <a target="_" :href="song.url">
             <div class="grid-link">
               <img src="../assets/shazam.png" alt="" />
             </div>
