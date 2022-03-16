@@ -32,12 +32,26 @@
       </div>
       <div class="slider">
         <div :class="'slide-' + currentSlide" class="slider-items">
-          <div
+          <div @click="trendingMusic(slide.key)"
             :class="currentSlide == index ? 'current-slide' : 'slide'"
-            v-for="(slide, index) in dataSlide"
+            v-for="(slide, index) in dataSlide.slice(0,5)"
             :key="index"
           >
-            <img :src="slide.track.images.coverart" alt="" />
+            <img :class="currentSlide == index ? 'current-image' : 'image'" :src="slide.images.coverart" alt="" />
+            <div :class="currentSlide == index ? 'current-player' : 'hidden'">
+              <div class="listen-now">
+                <label>Listen now</label>
+
+               <span class="material-icons-round button">
+                play_circle_outline
+                </span>
+              </div>
+
+              <div class="song-name">
+                <h2>{{slide.title}}</h2>
+                <h3>{{slide.subtitle}}</h3>
+              </div>
+            </div>
           </div>
         </div>
         <div class="btn">
@@ -121,6 +135,9 @@ export default {
   },
   mounted() {},
   methods: {
+    trendingMusic(key){
+      this.$router.push('/player/' + key)
+    },
     searchIcon(){
       if(this.search.length > 0){
       this.loading = true
@@ -199,13 +216,13 @@ export default {
     },
   },
   beforeMount(){
-    fetch("https://shazam.p.rapidapi.com/search?term=rose&locale=en-US&offset=0&limit=5", {
+    fetch("https://shazam.p.rapidapi.com/charts/track?locale=en-US&pageSize=20&startFrom=0", {
 	method: "GET",
 	headers: header,
 })
 .then(response => response.json())
 .then(data => {
-  this.dataSlide = data.tracks.hits
+  this.dataSlide = data.tracks
   console.log(data)
 })
 .catch(err => {
@@ -216,12 +233,78 @@ export default {
 </script>
 
 <style>
+.hidden{
+  display: none;
+}
 a{
   text-decoration: none;
   display: flex;
   align-items: center;
   width: 100%;
   justify-content: space-between;
+}
+.current-player .listen-now .button{
+  font-size: 85px;
+  margin-top: 30px;
+  border-radius: 100%;
+}
+.listen-now{
+  display: flex;
+  transition: 0.3s;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  justify-content: center;
+}
+.current-slide:hover .listen-now{
+  opacity: 1;
+}
+.current-slide:hover img{
+  filter: brightness(0.5);
+}
+
+.current-slide:active .listen-now{
+  opacity: 1;
+}
+.current-slide:active img{
+  filter: brightness(0.5);
+}
+.song-name h2{
+  margin-bottom: 6px;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 25px;
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  font-size: 20px;
+}
+.song-name h3{
+  font-size: 17px;
+  max-height: 23px;
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 500;
+}
+.listen-now label{
+  font-size: 17px;
+}
+.current-player{
+  position: absolute;
+  top: 0;
+  text-align: center;
+  height: 100%;
+  align-items: center;
+  padding: 25px 32px 20px 32px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+.button img{
+  opacity: 1;
 }
 .head {
   margin: 38px 30px 0 22px;
@@ -305,8 +388,12 @@ main .top-label {
   width: 245px;
   height: 245px;
   cursor: pointer;
+  position: relative;
+  z-index: 10;
   background-color: gray;
   transition: 0.3s;
+  display: flex;
+  justify-content: center;
   border-radius: 10px;
 }
 .slide img {
@@ -316,7 +403,9 @@ main .top-label {
 }
 .current-slide img {
   height: 100%;
+  transition: 0.2s;
   border-radius: 10px;
+  filter: brightness(0.7);
   width: 100%;
 }
 .slider .slide {
@@ -488,13 +577,13 @@ main .top-label {
   color: transparent;
   -webkit-text-stroke: 1.2px white;
 }
+
 @media (max-width: 500px){
   .slider .current-slide {
   opacity: 1;
   width: 225px;
   height: 225px;
   cursor: pointer;
-  background-color: gray;
   transition: 0.3s;
   border-radius: 10px;
 }
