@@ -644,7 +644,7 @@ main .top-label {
 }
 .song-name h3{
   font-size: 15px;
-  max-height: 23px;
+  max-height: 21px;
   font-weight: 500;
 }
 .listen-now label{
@@ -675,6 +675,7 @@ main .top-label {
 @media (max-width: 380px) {
    .song-name h2{
   font-size: 17px;
+  max-height: 23px;
 }
 .song-name h3{
   font-size: 15px;

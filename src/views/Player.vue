@@ -327,7 +327,7 @@ header img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("../assets/disk.png");
+  background-image: url("https://cloudse1.seupload.com/cache/plugins/filepreviewer/10674/82c9758c3e0c0fb39216e342a46a6f1d99cf586b2881e63e38011d0e52572b98/280x280_middle.jpg");
   background-size: contain;
   mix-blend-mode: hard-light;
   opacity: 65%;
@@ -335,7 +335,6 @@ header img {
   border-radius: 100%;
   height: 100%;
 }
-
 a label{
   color: black;
 }
