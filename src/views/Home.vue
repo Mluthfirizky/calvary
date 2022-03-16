@@ -340,6 +340,7 @@ main .top-label {
 }
 .top-label h5 {
   font-size: 14px;
+  cursor: pointer;
   font-weight: 400;
 }
 .slider {
@@ -387,6 +388,7 @@ main .top-label {
   opacity: 1;
   width: 245px;
   height: 245px;
+  overflow: hidden;
   cursor: pointer;
   position: relative;
   z-index: 10;
@@ -599,6 +601,9 @@ main .top-label {
 }
 
 @media (max-width: 480px) {
+  .search-content {
+  margin-top: 50px;
+}
   .search-content .left h3 {
   font-size: 11px;
   white-space: pre-wrap;
@@ -631,6 +636,27 @@ main .top-label {
 }
 }
 @media (max-width: 420px) {
+  .search-content {
+  margin-top: 30px;
+}
+  .song-name h2{
+  font-size: 18px;
+}
+.song-name h3{
+  font-size: 15px;
+  max-height: 23px;
+  font-weight: 500;
+}
+.listen-now label{
+  font-size: 15px;
+}
+.current-player{
+  padding: 10px 20px 20px 20px;
+}
+  .current-player .listen-now .button{
+  font-size: 65px;
+  margin-top: 25px;
+}
     .kosong .text{
   font-weight: 700;
   font-size: 10px;
@@ -647,6 +673,28 @@ main .top-label {
 }
 }
 @media (max-width: 380px) {
+   .song-name h2{
+  font-size: 17px;
+}
+.song-name h3{
+  font-size: 15px;
+  max-height: 23px;
+  font-weight: 500;
+}
+.listen-now label{
+  font-size: 15px;
+}
+.current-player{
+  padding: 10px 20px 20px 20px;
+}
+  .current-player .listen-now .button{
+  font-size: 60px;
+  margin-top: 20px;
+}
+    .kosong .text{
+  font-weight: 700;
+  font-size: 10px;
+}
 .slide-0 {
   left: 39.9%;
 }

@@ -371,6 +371,8 @@ a label{
   margin-top: 7px;
   font-size: 25px;
   font-weight: 400;
+  text-align: center;
+  padding: 0 20px;
   margin-bottom: 14px;
 }
 .music-detail .release {
